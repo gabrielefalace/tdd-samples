@@ -3,6 +3,8 @@ package com.samples;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.util.UUID;
+
 public class OrderEntityToSummaryTransformation {
 
     OrderTransformer transformer = new OrderTransformer();
@@ -10,7 +12,11 @@ public class OrderEntityToSummaryTransformation {
     @Test
     public void test_transform_success() {
 
-        OrderSummary result = transformer.transform(null);
+        String orderNumberFixture = UUID.randomUUID().toString();
+        OrderEntity entity = new OrderEntity();
+        entity.setOrderNumber(orderNumberFixture);
+
+        OrderSummary result = transformer.transform(entity);
 
         assertNotNull(result);
 
