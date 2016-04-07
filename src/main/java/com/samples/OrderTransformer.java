@@ -1,12 +1,8 @@
 package com.samples;
 
-
-public class OrderTransformer {
-
-    public OrderSummary transform(OrderEntity order){
-        OrderSummary summary = new OrderSummary();
-        summary.setOrderNumber(order.getOrderNumber());
-        return summary;
-    }
-
+/**
+ * Created by gabrielefalace on 07.04.16.
+ */
+public interface OrderTransformer {
+    OrderSummary transform(OrderEntity order);
 }
