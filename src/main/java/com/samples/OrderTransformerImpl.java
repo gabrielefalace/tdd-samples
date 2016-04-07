@@ -1,8 +1,9 @@
 package com.samples;
 
 
-public class OrderTransformerImpl {
+public class OrderTransformerImpl implements OrderTransformer {
 
+    @Override
     public OrderSummary transform(OrderEntity order){
         OrderSummary summary = new OrderSummary();
         summary.setOrderNumber(order.getOrderNumber());

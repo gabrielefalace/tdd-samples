@@ -1,13 +1,14 @@
 package com.samples;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 import java.util.UUID;
 
 public class OrderEntityToSummaryTransformation {
 
-    OrderTransformer transformer = new OrderTransformer();
+    OrderTransformerImpl transformer = new OrderTransformerImpl();
 
     @Test
     public void test_transform_success() {
