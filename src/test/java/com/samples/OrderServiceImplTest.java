@@ -5,10 +5,10 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
-import org.mockito.Mockito;
+
 import java.util.List;
 
-public class OrderServiceTest {
+public class OrderServiceImplTest {
 
 
     private final static int CUSTOMER_ID = 1;
@@ -17,7 +17,7 @@ public class OrderServiceTest {
     public void test_getOrderSummary_success(){
 
         // setup
-        OrderService target = new OrderService();
+        OrderServiceImpl target = new OrderServiceImpl();
 
         // preparing fixtures
         OrderEntity orderEntityFixture = new OrderEntity();

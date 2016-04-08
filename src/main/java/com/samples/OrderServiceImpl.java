@@ -3,7 +3,7 @@ package com.samples;
 import java.util.LinkedList;
 import java.util.List;
 
-public class OrderService {
+public class OrderServiceImpl {
 
     private OrderDao orderDao;
 
