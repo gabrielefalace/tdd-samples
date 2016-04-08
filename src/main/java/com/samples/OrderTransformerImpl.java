@@ -1,6 +1,5 @@
 package com.samples;
 
-
 public class OrderTransformerImpl implements OrderTransformer {
 
     @Override

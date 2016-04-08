@@ -1,6 +1,5 @@
 package com.samples;
 
-
 import java.util.LinkedList;
 import java.util.List;
 

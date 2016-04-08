@@ -1,8 +1,9 @@
 package com.samples;
 
 import static java.util.Arrays.*;
-
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 import java.util.List;
@@ -25,16 +26,16 @@ public class OrderServiceTest {
         OrderSummary orderSummaryFixture = new OrderSummary();
 
         // inject first mock
-        OrderDao mockOrderDao = Mockito.mock(OrderDao.class);
+        OrderDao mockOrderDao = mock(OrderDao.class);
         target.setOrderDao(mockOrderDao);
 
         // inject second mock
-        OrderTransformer mockTransformer = Mockito.mock(OrderTransformer.class);
+        OrderTransformer mockTransformer = mock(OrderTransformer.class);
         target.setTransformer(mockTransformer);
 
         // stub interaction with mocks ( fixtures are returned )
-        Mockito.when(mockOrderDao.findOrdersByCustomer(CUSTOMER_ID)).thenReturn(orderEntityListFixture);
-        Mockito.when(mockTransformer.transform(orderEntityFixture)).thenReturn(orderSummaryFixture);
+        when(mockOrderDao.findOrdersByCustomer(CUSTOMER_ID)).thenReturn(orderEntityListFixture);
+        when(mockTransformer.transform(orderEntityFixture)).thenReturn(orderSummaryFixture);
 
 
         // execution
@@ -46,15 +47,8 @@ public class OrderServiceTest {
         assertSame(orderSummaryFixture, result.get(0));
 
         // verification - interactions
-        Mockito.verify(mockOrderDao).findOrdersByCustomer(CUSTOMER_ID);
-        Mockito.verify(mockTransformer).transform(orderEntityFixture);
-
-
+        verify(mockOrderDao).findOrdersByCustomer(CUSTOMER_ID);
+        verify(mockTransformer).transform(orderEntityFixture);
     }
-
-
-
-
-
 
 }
