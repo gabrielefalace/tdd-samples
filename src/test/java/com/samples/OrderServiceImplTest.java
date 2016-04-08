@@ -4,14 +4,37 @@ import static java.util.Arrays.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
 public class OrderServiceImplTest {
 
+    OrderTransformer transformer;
+
+    OrderDao orderDao;
+
+    OrderServiceImpl target;
+
 
     private final static int CUSTOMER_ID = 1;
+
+
+    @Before
+    public void setup(){
+        orderDao = mock(OrderDao.class);
+        transformer = mock(OrderTransformer.class);
+        target = new OrderServiceImpl();
+        target.setOrderDao(orderDao);
+        target.setTransformer(transformer);
+    }
+
+
 
     @Test
     public void test_getOrderSummary_success(){
@@ -49,6 +72,39 @@ public class OrderServiceImplTest {
         // verification - interactions
         verify(mockOrderDao).findOrdersByCustomer(CUSTOMER_ID);
         verify(mockTransformer).transform(orderEntityFixture);
+    }
+
+
+    @Test
+    public void test_openNewOrder_successfullyRetriesDataInsert(){
+        when(orderDao.insert(any(OrderEntity.class)))
+                .thenThrow(new Exception("First Ex"))
+                .thenReturn(1);
+
+
+        target.openNewOrder(CUSTOMER_ID);
+        verify(orderDao, times(2)).insert(any(OrderEntity.class));
+    }
+
+
+    @Test(expected = ServiceException.class)
+    public void test_openNewOrder_failedDataInsert(){
+        when(orderDao.insert(any(OrderEntity.class)))
+                .thenThrow(new Exception("First Ex"))
+                .thenThrow(new Exception("Second Ex"));
+
+         /*
+           By using the try-finally we both check that
+           exception is thrown && verify interactions.
+         */
+        try{
+            target.openNewOrder(CUSTOMER_ID);
+        }
+        finally {
+            verify(orderDao, times(2))
+                    .insert(any(OrderEntity.class));
+        }
+
     }
 
 }

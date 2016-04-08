@@ -10,4 +10,9 @@ public class OrderDaoImpl implements OrderDao {
         return null;
     }
 
+    @Override
+    public int insert(OrderEntity orderEntity) {
+        return 0;
+    }
+
 }

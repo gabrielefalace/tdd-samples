@@ -8,6 +8,8 @@ public class OrderEntity {
 
     private List<OrderItem> orderItems;
 
+    private long customerId;
+
     public String getOrderNumber() {
         return orderNumber;
     }
@@ -22,5 +24,13 @@ public class OrderEntity {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
+    }
+
+    public long getCustomerId() {
+        return customerId;
     }
 }
