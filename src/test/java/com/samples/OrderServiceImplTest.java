@@ -6,7 +6,9 @@ import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -76,9 +78,9 @@ public class OrderServiceImplTest {
 
 
     @Test
-    public void test_openNewOrder_successfullyRetriesDataInsert(){
+    public void test_openNewOrder_successfullyRetriesDataInsert() throws Exception{
         when(orderDao.insert(any(OrderEntity.class)))
-                .thenThrow(new Exception("First Ex"))
+                .thenThrow(new RuntimeException("First Ex"))
                 .thenReturn(1);
 
 
@@ -88,10 +90,10 @@ public class OrderServiceImplTest {
 
 
     @Test(expected = ServiceException.class)
-    public void test_openNewOrder_failedDataInsert(){
+    public void test_openNewOrder_failedDataInsert() throws Exception {
         when(orderDao.insert(any(OrderEntity.class)))
-                .thenThrow(new Exception("First Ex"))
-                .thenThrow(new Exception("Second Ex"));
+                .thenThrow(new RuntimeException("First Ex"))
+                .thenThrow(new RuntimeException("Second Ex"));
 
          /*
            By using the try-finally we both check that
@@ -104,6 +106,26 @@ public class OrderServiceImplTest {
             verify(orderDao, times(2))
                     .insert(any(OrderEntity.class));
         }
+
+    }
+
+    @Test
+    public void test_openNewOrder_success() throws Exception {
+        when(orderDao.insert(any(OrderEntity.class)))
+                .thenReturn(1);
+
+        String orderNumber = target.openNewOrder(CUSTOMER_ID);
+
+        ArgumentCaptor<OrderEntity> orderEntityCaptor = ArgumentCaptor.forClass(OrderEntity.class);
+
+        verify(orderDao).insert(orderEntityCaptor.capture());
+
+        OrderEntity capturedOrderEntity = orderEntityCaptor.getValue();
+
+        assertNotNull(capturedOrderEntity);
+
+        assertEquals(CUSTOMER_ID, capturedOrderEntity.getCustomerId());
+        assertEquals(orderNumber, capturedOrderEntity.getOrderNumber());
 
     }
 

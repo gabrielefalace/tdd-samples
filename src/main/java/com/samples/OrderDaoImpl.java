@@ -11,7 +11,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public int insert(OrderEntity orderEntity) {
+    public int insert(OrderEntity orderEntity) throws Exception {
         return 0;
     }
 

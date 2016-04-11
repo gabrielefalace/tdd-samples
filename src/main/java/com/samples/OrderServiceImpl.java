@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class OrderServiceImpl {
 
-    private static final int MAX_INSERT_ATTEMPT = 3;
+    private static final int MAX_INSERT_ATTEMPT = 2;
     private OrderDao orderDao;
 
     private OrderTransformer transformer;
