@@ -31,7 +31,8 @@ public class UserTestTheory {
     public void testUserCanDrive(int age, boolean health) {
         user.setAge(age);
         user.setGoodHealth(health);
-        assumeTrue(user.getAge() >= 18 && user.getAge() <= 100);
+        assumeTrue(user.getAge() >= 18);
+        assumeTrue(user.getAge() <= 100);
         assumeTrue(user.isGoodHealth());
         assertTrue(user.canDrive());
     }
@@ -39,7 +40,8 @@ public class UserTestTheory {
     @Theory
     public void testUserCannotDrive(int age) {
         user.setAge(age);
-        assumeFalse(user.getAge() >= 18 && user.getAge() <= 100);
+        assumeTrue(user.getAge() >= 18);
+        assumeTrue(user.getAge() <= 100);
         assertFalse(user.canDrive());
     }
 
