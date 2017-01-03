@@ -1,3 +1,3 @@
 # tdd-samples
 
-Some TDD samples (Java, Mockito, etc...)
+Some TDD samples (Java, Mockito, Theories, etc...)
